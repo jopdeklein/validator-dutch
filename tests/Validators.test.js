@@ -31,7 +31,7 @@ describe("maxLength", () => {
       _utils._setMessage(_messages.maxLength, { maxLength: 2 })
     )
   })
-  it("Should throw if maxLength is not defined of not of type number", () => {
+  it("Should throw if maxLength is not defined or not of type number", () => {
     expect(() => {
       Test().maxLength()
     }).toThrowError(new Error(_errors.maxLength))
@@ -95,7 +95,7 @@ describe("minLength", () => {
     const result = validate(input, tests)
     expect(result).toHaveProperty("one", _messages.notAString)
   })
-  it("Should throw if minLength is not defined of not of type number", () => {
+  it("Should throw if minLength is not defined or not of type number", () => {
     expect(() => {
       Test().minLength()
     }).toThrowError(new Error(_errors.minLength))
@@ -165,7 +165,7 @@ describe("minAndMaxLength", () => {
     expect(result).toHaveProperty("one", _messages.notAString)
   })
 
-  it("Should throw if minLength or maxLength is not defined of not of type number", () => {
+  it("Should throw if minLength or maxLength is not defined or not of type number", () => {
     expect(() => {
       Test().minAndMaxLength("a", "b")
     }).toThrowError(new Error(_errors.minAndMaxLength[1]))
