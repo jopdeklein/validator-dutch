@@ -17,3 +17,16 @@ describe("isValidObject", () => {
     ).toBe(true)
   })
 })
+
+describe('hasAllKeys', () => {
+  test.each`
+    a                           | b                           | expected
+    ${{foo: 'bar', bar: 'baz'}} | ${{bar: 'baz', foo: 'bar'}} | ${true}
+    ${{foo: 'bar'}}             | ${{bar: 'baz', foo: 'bar'}} | ${false}
+    ${{foo: 'bar', bar: 'baz'}} | ${{foo: 'bar'}}             | ${false}
+    ${{foo: 'bar', bar: 'baz'}} | ${{}}                       | ${false}
+    ${{foo: 'bar', bar: 'baz'}} | ${'foo'}                    | ${false}
+  `('returns $expected for $a and $b', ({a, b, expected}) => {
+    expect(utils._hasAllKeys(a, b)).toEqual(expected)
+  })
+})
