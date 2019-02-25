@@ -1,11 +1,10 @@
+const isValidObject = (obj) =>
+  obj.constructor === Object && Object.keys(obj).length > 0
+
+// TODO: Export invidiual utils
 module.exports = {
   _isValidObject(...objects) {
-    let isObject = true
-    objects.forEach(obj => {
-      if (obj.constructor !== Object) isObject = false
-      if (Object.keys(obj).length === 0) isObject = false
-    })
-    return isObject
+    return objects.every(isValidObject)
   },
   _isTest(tests) {
     let isTest = true
@@ -20,13 +19,13 @@ module.exports = {
     })
   },
   _hasAllKeys(input, tests) {
-    let hasAllKeys = true
-    for (key in tests) {
-      if (!input.hasOwnProperty(key)) hasAllKeys = false
-    }
-    for (key in input) {
-      if (!tests.hasOwnProperty(key)) hasAllKeys = false
-    }
-    return hasAllKeys
+    const inputKeys = Object.keys(input)
+    const testsKeys = Object.keys(tests)
+    if(
+      !isValidObject(input) || !isValidObject(tests) ||
+      inputKeys.length !== testsKeys.length
+    ) return false
+
+    return inputKeys.every((k) => testsKeys.includes(k))
   }
 }
